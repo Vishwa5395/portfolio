@@ -67,8 +67,8 @@ const Projects = () => {
       technologies: ['React', 'Tailwind CSS', 'Lucide-React'],
       category: 'frontend',
       githubUrl: 'https://github.com/Vishwa5395/portfolio',
-      liveUrl: 'https://vishwanath.dev',
-      status: 'in-progress',
+      liveUrl: 'https://vishwanaath-portfolio.vercel.app/',
+      status: 'completed',
       date: '23-06-2025'
     },
     {
