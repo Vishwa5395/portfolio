@@ -26,19 +26,19 @@ const Experience = () => {
 
   const experiences = [
     {
-      title: 'NASA Space Apps Challenge',
-      company: 'NASA',
+      title: 'India Space Labs Winter Internship',
+      company: 'ISRO',
       location: 'VIT-AP University, Andhra Pradesh',
-      duration: '24 hours',
-      type: 'Hackathon',
-      description: 'Leading development of scalable web applications using HTML, CSS, Node.js, Express and MongoDB. Building a web-app to help farmers by implementing best practices.',
+      duration: '1 month',
+      type: 'Winter Internship Training',
+      description: 'Participants works closely with various verticals, divisions, and cells of Space and receive training in Drone Technology (Air Taxi), CanSat and CubeSat (Student Satellite), Space Entrepreneurship, and Astronomy.',
       achievements: [
-        'Won the Local Impact Winner award with team',
-        'Led a team of 4 developers to deliver a major projects on time',
-        'Made a data visualization page to show rainfall data through charts and bar graphs for a specific region',
-        'Used APIs to fetch data and added filters for specific regions',
+        'Completed a month-long internship with hands-on experience in drone technology and satellite systems',
+        'Learned about the latest advancements in space technology and its applications',
+        'Made significant contributions to team projects, enhancing my understanding of space systems',
+        'Understood the practical applications of space technology in real-world scenarios',
       ],
-      technologies: ['HTML', 'Node.js', 'MongoDB', 'CSS', 'Express']
+      technologies: ['Drone technology', 'Satellitle technology', 'Drone maneuverability', 'Physics of Air Taxi']
     },
     {
       title: 'DevOps Member',

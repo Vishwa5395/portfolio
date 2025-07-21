@@ -45,9 +45,9 @@ const Footer = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-8">
           {/* Brand Section */}
-          <div className="col-span-1 md:col-span-1">
+          <div className="max-w-md w-full text-left">
             <div className="flex items-center gap-3 mb-4">
               <div className="p-2 bg-slate-800/50 rounded-lg border border-cyan-500/30">
                 <Code2 size={24} className="text-cyan-400" />
@@ -63,7 +63,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="col-span-1">
+          {/* <div className="col-span-1">
             <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
               <span className="w-1 h-4 bg-cyan-400 rounded-full"></span>
               Quick Links
@@ -95,7 +95,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           {/* Connect Section */}
           <div className="col-span-1">
@@ -151,7 +151,7 @@ const Footer = () => {
         </div>
 
         {/* Fun Stats */}
-        <div className="mt-8 pt-6 border-t border-white/5">
+        {/* <div className="mt-8 pt-6 border-t border-white/5">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div className="group">
               <div className="text-2xl font-bold text-cyan-400 mb-1 group-hover:scale-110 transition-transform">
@@ -172,7 +172,7 @@ const Footer = () => {
               <div className="text-xs text-gray-500">Learning</div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Floating Animation Elements */}

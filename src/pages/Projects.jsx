@@ -67,7 +67,7 @@ const Projects = () => {
       technologies: ['React', 'Tailwind CSS', 'Lucide-React'],
       category: 'frontend',
       githubUrl: 'https://github.com/Vishwa5395/portfolio',
-      liveUrl: 'https://vishwanaath-portfolio.vercel.app/',
+      liveUrl: 'https://vishwanath.dev',
       status: 'completed',
       date: '23-06-2025'
     },
@@ -148,12 +148,11 @@ const Projects = () => {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
             {[
               { label: 'Total Projects', value: projectStats.total, icon: <Code size={24} />, color: 'cyan' },
               { label: 'Completed', value: projectStats.completed, icon: <Star size={24} />, color: 'green' },
               { label: 'In Progress', value: projectStats.inProgress, icon: <GitBranch size={24} />, color: 'yellow' },
-              { label: 'Total Stars', value: projectStats.totalStars, icon: <Star size={24} />, color: 'purple' }
             ].map((stat, index) => (
               <div key={index} className="bg-slate-800/30 backdrop-blur-xl rounded-xl p-6 border border-white/10 text-center hover:border-white/20 transition-all duration-300">
                 <div className={`text-${stat.color}-400 mb-2 flex justify-center`}>
