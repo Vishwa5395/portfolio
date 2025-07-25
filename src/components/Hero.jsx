@@ -244,7 +244,7 @@ const Hero = () => {
             {/* Enhanced CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="/Ref resume 2.pdf.pdf"
+                href="/Resume.pdf"
                 download
                 className="group relative flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 overflow-hidden"
               >

@@ -315,7 +315,7 @@ const Contact = () => {
                 Email Me
               </a>
               <a
-                href="/Ref resume 2.pdf"
+                href="/Resume.pdf"
                 download
                 className="flex items-center gap-2 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:scale-105"
               >
