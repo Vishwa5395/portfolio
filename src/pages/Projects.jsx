@@ -39,7 +39,7 @@ const Projects = () => {
       id: 3,
       title: 'Weather Prediction Model',
       description: 'A Flask-based weather prediction app that uses machine learning and rolling statistics to forecast future average temperatures for selected cities.',
-      image: 'https://i.postimg.cc/QCkX8WLH/Chat-GPT-Image-Jun-22-2025-06-27-47-AM.png',
+      image: 'https://i.postimg.cc/3wLxmhrr/weather-prediction.png',
       technologies: ['Python', 'Flask', 'scikit-learn', 'Ridge Regression'],
       category: 'machine-learning',
       githubUrl: 'https://github.com/Vishwa5395/weather_deploy',
