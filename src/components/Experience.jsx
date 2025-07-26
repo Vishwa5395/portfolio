@@ -43,7 +43,7 @@ const Experience = () => {
       title: 'India Space Labs Winter Internship',
       company: 'ISRO',
       location: 'VIT-AP University, Andhra Pradesh',
-      duration: '1 month',
+      duration: 'Dec 2024- Jan 2025',
       type: 'Winter Internship Training',
       description: 'Participants works closely with various verticals, divisions, and cells of Space and receive training in Drone Technology (Air Taxi), CanSat and CubeSat (Student Satellite), Space Entrepreneurship, and Astronomy.',
       achievements: [
