@@ -26,7 +26,7 @@ const Experience = () => {
 
   const experiences = [
     {
-      title: 'Full Stack Developer Summer Intern',
+      title: 'Full Stack Summer Intern',
       company: 'NETEFIE',
       location: 'Remote',
       duration: 'Jun 2025 - Present',
