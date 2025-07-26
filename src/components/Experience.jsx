@@ -26,6 +26,20 @@ const Experience = () => {
 
   const experiences = [
     {
+      title: 'Full Stack Developer Summer Intern',
+      company: 'NETEFIE',
+      location: 'Remote',
+      duration: 'Jun 2025 - Present',
+      type: 'Part-time',
+      description: 'Developing a Hospital Management System for big giant hospitals like apollo, apex and other clients.',
+      achievements: [
+        'Learnt working with NextJS',
+        'Learnt about company level architecture and culture',
+        'Introduced with new technologies in backend like NestJS, Prisma',
+      ],
+      technologies: ['NextJS', 'NestJS', 'Prisma', 'Docker', 'TypeScript','Tailwind CSS']
+    },
+    {
       title: 'India Space Labs Winter Internship',
       company: 'ISRO',
       location: 'VIT-AP University, Andhra Pradesh',
@@ -39,20 +53,6 @@ const Experience = () => {
         'Understood the practical applications of space technology in real-world scenarios',
       ],
       technologies: ['Drone technology', 'Satellitle technology', 'Drone maneuverability', 'Physics of Air Taxi']
-    },
-    {
-      title: 'DevOps Member',
-      company: 'GDG On Campus VIT-AP',
-      location: 'VIT-AP University, Andhra Pradesh',
-      duration: 'Nov 2024 - Present',
-      type: 'Part-time',
-      description: 'Developed a multilingual language detection model that accurately identifies text language from 22 supported languages using NLP techniques.',
-      achievements: [
-        'Achieved an accuracy of 72%',
-        'Learnt about different Machine learning Algorithms',
-        'Collaborated with UX/UI team to improve user engagement by 35% by making a basic web-page to run the model',
-      ],
-      technologies: ['Naive Bayes', 'Python', 'CSS', 'HTML', 'Scikit-learn','TF-IDF Vectorizer']
     },
     {
       title: 'Web Developer Intern',
