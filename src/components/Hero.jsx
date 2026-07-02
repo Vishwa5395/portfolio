@@ -1,114 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronDown, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Coffee, Code, Zap, Sparkles } from 'lucide-react';
-
-// TSParticles simulation using CSS animations and React state
-const ParticleSystem = () => {
-  const [particles, setParticles] = useState([]);
-
-  useEffect(() => {
-    const newParticles = Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      speedX: (Math.random() - 0.5) * 0.5,
-      speedY: (Math.random() - 0.5) * 0.5,
-      opacity: Math.random() * 0.5 + 0.2,
-      color: ['cyan', 'purple', 'blue', 'pink'][Math.floor(Math.random() * 4)],
-    }));
-    setParticles(newParticles);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className={`absolute w-1 h-1 bg-${particle.color}-400 rounded-full animate-float-particle`}
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            opacity: particle.opacity,
-            animationDelay: `${Math.random() * 10}s`,
-            animationDuration: `${8 + Math.random() * 6}s`,
-          }}
-        />
-      ))}
-
-      {/* Interactive lines connecting particles */}
-      <svg className="absolute inset-0 w-full h-full">
-        {particles.slice(0, 20).map((particle, i) => (
-          <g key={`line-${i}`}>
-            {particles.slice(i + 1, i + 3).map((otherParticle, j) => (
-              <line
-                key={`${i}-${j}`}
-                x1={`${particle.x}%`}
-                y1={`${particle.y}%`}
-                x2={`${otherParticle.x}%`}
-                y2={`${otherParticle.y}%`}
-                stroke="url(#particleGradient)"
-                strokeWidth="0.5"
-                opacity="0.2"
-                className="animate-pulse"
-              />
-            ))}
-          </g>
-        ))}
-        <defs>
-          <linearGradient id="particleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#06b6d4" />
-            <stop offset="100%" stopColor="#8b5cf6" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-  );
-};
-
-const MatrixRain = () => {
-  const [drops, setDrops] = useState([]);
-
-  useEffect(() => {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>{}[]()";
-    const newDrops = Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      chars: Array.from({ length: 15 }, () =>
-        characters[Math.floor(Math.random() * characters.length)]
-      ),
-      speed: Math.random() * 2 + 1,
-    }));
-    setDrops(newDrops);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-      {drops.map((drop) => (
-        <div
-          key={drop.id}
-          className="absolute animate-matrix-fall"
-          style={{
-            left: `${drop.x}%`,
-            animationDuration: `${drop.speed * 3}s`,
-            animationDelay: `${Math.random() * 5}s`,
-          }}
-        >
-          {drop.chars.map((char, i) => (
-            <div
-              key={i}
-              className="text-cyan-400 text-xs font-mono leading-none opacity-70"
-              style={{
-                animationDelay: `${i * 0.1}s`,
-              }}
-            >
-              {char}
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-};
+import { ChevronDown, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Code, Zap, Sparkles } from 'lucide-react';
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
@@ -124,9 +15,8 @@ const Hero = () => {
   ];
 
   const stats = [
-    { label: "Projects Completed", value: "5+", icon: <Code size={20} /> },
-    { label: "Technologies Used", value: "15+", icon: <Zap size={20} /> },
-    { label: "Coffee Consumed", value: "∞", icon: <Coffee size={20} /> }
+    { label: "Projects", value: "5+", icon: <Code size={24} />, color: "bg-brutal-lime", textColor: "text-brutal-black" },
+    { label: "Technologies", value: "15+", icon: <Zap size={24} />, color: "bg-brutal-pink", textColor: "text-white" },
   ];
 
   useEffect(() => {
@@ -156,302 +46,150 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-black"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-cream dark:bg-dark-bg"
       onMouseMove={handleMouseMove}
     >
-      {/* TSParticles-style Background System */}
-      <ParticleSystem />
+      {/* Dot Grid Pattern Overlay */}
+      <div className="dot-grid absolute inset-0 pointer-events-none"></div>
 
-      {/* Matrix Rain Effect */}
-      <MatrixRain />
-
-      {/* Dynamic Gradient Orbs */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Main Bento Grid */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10 w-full">
         <div
-          className="absolute w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full filter blur-3xl animate-pulse-slow transform transition-transform duration-1000"
-          style={{
-            left: `${mousePosition.x * 0.1}%`,
-            top: `${mousePosition.y * 0.1}%`,
-          }}
-        ></div>
-        <div
-          className="absolute w-80 h-80 bg-gradient-to-r from-purple-500/15 to-pink-500/15 rounded-full filter blur-3xl animate-pulse-slow"
-          style={{
-            right: `${mousePosition.x * 0.05}%`,
-            bottom: `${mousePosition.y * 0.05}%`,
-            animationDelay: '2s'
-          }}
-        ></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 rounded-full filter blur-3xl animate-pulse-slow" style={{ animationDelay: '4s' }}></div>
-      </div>
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 auto-rows-auto transform transition-all duration-700 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}
+        >
 
-      {/* Floating Code Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {['{ }', '< />', '[ ]', '( )', '&&', '||', '=>', '++'].map((symbol, i) => (
-          <div
-            key={i}
-            className="absolute text-cyan-400/20 font-mono text-lg animate-code-float"
-            style={{
-              left: `${10 + (i * 12)}%`,
-              top: `${20 + (i * 8)}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${4 + Math.random() * 3}s`
-            }}
-          >
-            {symbol}
+          {/* ===== TILE 1: Name + Role (Large — spans 2 cols) ===== */}
+          <div className="sm:col-span-2 bg-brutal-black text-white border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal dark:shadow-brutal-dark p-6 sm:p-8 flex flex-col justify-center min-h-[200px] sm:min-h-[240px]">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-sm font-mono text-brutal-lime tracking-widest uppercase">Hello, I'm</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-grotesk font-extrabold text-white leading-none mb-3">
+              Vishwanath
+              <span className="inline-block ml-2 sm:ml-3 animate-wave text-4xl sm:text-5xl md:text-7xl" role="img" aria-label="waving hand">👋</span>
+            </h1>
+            <div className="flex items-center gap-2 min-h-[2.5rem]">
+              <span className="animate-spin-slow inline-block text-xl">⚡</span>
+              <span className="font-mono text-lg sm:text-xl text-brutal-lime font-semibold tracking-tight">
+                {roles[currentRole]}
+              </span>
+              <span className="w-0.5 h-5 bg-brutal-lime animate-pulse inline-block"></span>
+            </div>
           </div>
-        ))}
-      </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
-          <div className={`space-y-8 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            {/* Greeting */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-cyan-400 text-lg font-medium">
-                <div className="w-8 h-px bg-gradient-to-r from-cyan-400 to-transparent animate-pulse"></div>
-                <span className="animate-type-writer">Hello, I'm</span>
-              </div>
-
-              <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient-x">
-                  Vishwanath
-                </span>
-              </h1>
-
-              {/* Enhanced Role Animation */}
-              <div className="text-2xl md:text-3xl text-gray-300 min-h-[3rem] flex items-center">
-                <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent font-semibold animate-fade-in-out">
-                  {roles[currentRole]}
-                </span>
-                <span className="ml-2 w-1 h-6 bg-cyan-400 animate-pulse"></span>
-              </div>
+          {/* ===== TILE 2: Profile Image (small square) ===== */}
+          <div className="bg-brutal-yellow border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal dark:shadow-brutal-dark p-3 flex items-center justify-center">
+            <div className="w-full aspect-square rounded-md border-3 border-brutal-black dark:border-dark-border shadow-brutal-sm dark:shadow-brutal-dark-sm overflow-hidden">
+              <img
+                src="https://i.postimg.cc/PJ0WM2kn/Whats-App-Image-2025-07-21-at-08-00-49.jpg"
+                alt="Vishwanath"
+                className="w-full h-full object-cover"
+              />
             </div>
+          </div>
 
-            {/* Description */}
-            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl animate-slide-up">
-              Passionate about creating exceptional digital experiences with cutting-edge technologies.
-              I specialize in building scalable, user-centric applications that bridge innovation and functionality.
-            </p>
-
-            {/* Location with enhanced styling */}
-            <div className="flex items-center gap-2 text-gray-400 group hover:text-cyan-400 transition-colors duration-300">
-              <MapPin size={18} className="text-cyan-400 group-hover:animate-bounce" />
-              <span>Kanpur, Uttar Pradesh, India</span>
-            </div>
-
-            {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="/Resume.pdf"
-                download
-                className="group relative flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <Download size={20} className="relative z-10 group-hover:animate-bounce" />
-                <span className="relative z-10">Download Resume</span>
-              </a>
-
-              <button
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group relative flex items-center gap-3 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-cyan-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                <Mail size={20} className="relative z-10" />
-                <span className="relative z-10">Get In Touch</span>
-              </button>
-            </div>
-
-            {/* Enhanced Social Links */}
-            <div className="flex items-center gap-6">
+          {/* ===== TILE 3: Social Links (small) ===== */}
+          <div className="bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal dark:shadow-brutal-dark p-4 sm:p-5 flex flex-col items-center justify-center gap-3">
+            <span className="font-grotesk font-bold text-brutal-black dark:text-dark-text text-sm uppercase tracking-wider">Connect</span>
+            <div className="flex items-center gap-3">
               <a
                 href="https://github.com/Vishwa5395"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative p-3 bg-slate-800/50 hover:bg-slate-700 rounded-full border border-slate-700 hover:border-cyan-500 transition-all duration-300 hover:scale-110 overflow-hidden"
+                className="group w-12 h-12 bg-brutal-black text-white border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal-sm dark:shadow-brutal-dark-sm flex items-center justify-center hover:-translate-y-1 hover:shadow-brutal transition-all duration-200 hover:animate-wiggle"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-transparent transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></div>
-                <Github size={24} className="relative z-10 text-gray-400 group-hover:text-cyan-400 transition-colors duration-300" />
+                <Github size={22} />
               </a>
-
               <a
                 href="https://www.linkedin.com/in/vishwanath-tiwari-779528287/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative p-3 bg-slate-800/50 hover:bg-slate-700 rounded-full border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:scale-110 overflow-hidden"
+                className="group w-12 h-12 bg-brutal-blue text-white border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal-sm dark:shadow-brutal-dark-sm flex items-center justify-center hover:-translate-y-1 hover:shadow-brutal transition-all duration-200 hover:animate-wiggle"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-transparent transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></div>
-                <Linkedin size={24} className="relative z-10 text-gray-400 group-hover:text-blue-400 transition-colors duration-300" />
+                <Linkedin size={22} />
               </a>
-
               <a
                 href="mailto:tiwarivishwanath5395@gmail.com"
-                className="group relative p-3 bg-slate-800/50 hover:bg-slate-700 rounded-full border border-slate-700 hover:border-purple-500 transition-all duration-300 hover:scale-110 overflow-hidden"
+                className="group w-12 h-12 bg-brutal-pink text-white border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal-sm dark:shadow-brutal-dark-sm flex items-center justify-center hover:-translate-y-1 hover:shadow-brutal transition-all duration-200 hover:animate-wiggle"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-transparent transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full"></div>
-                <Mail size={24} className="relative z-10 text-gray-400 group-hover:text-purple-400 transition-colors duration-300" />
+                <Mail size={22} />
               </a>
             </div>
           </div>
 
-          {/* Enhanced Profile Image & Stats */}
-          <div className={`relative transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            {/* Profile Image Container */}
-            <div className="relative w-80 h-80 mx-auto group">
-              {/* Enhanced Glowing Background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-all duration-500 scale-110 animate-pulse-glow"></div>
-
-              {/* Rotating Border */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-full h-full rounded-full p-1 animate-spin-slow
-                    bg-gradient-to-r white" />
-              </div>
-              <div className="w-full h-full bg-slate-900 rounded-full p-4">
-                <div className="w-full h-full bg-gradient-to-br from-slate-700 to-slate-800 rounded-full flex items-center justify-center border-4 border-slate-600 group-hover:scale-105 transition-transform duration-500 overflow-hidden">
-                  <img
-                    src="https://i.postimg.cc/PJ0WM2kn/Whats-App-Image-2025-07-21-at-08-00-49.jpg"
-                    alt="Vishwanath.jpg"
-                    className="w-full h-full object-cover rounded-full filter brightness-110 contrast-105 group-hover:brightness-125 transition-all duration-500"
-                  />
-                </div>
-              </div>
+          {/* ===== TILE 4: Description + Location + Sticker (medium — spans 2 cols) ===== */}
+          <div className="sm:col-span-2 bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal dark:shadow-brutal-dark p-6 sm:p-8 relative overflow-hidden">
+            {/* Open to Work sticker */}
+            <div className="sticker absolute -top-1 -right-1 sm:top-3 sm:right-3 bg-brutal-lime text-brutal-black font-grotesk font-extrabold text-xs sm:text-sm px-3 py-1.5 border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal-sm dark:shadow-brutal-dark-sm z-10">
+              Open to Work ✦
             </div>
+            <p className="text-base sm:text-lg text-brutal-black dark:text-dark-text leading-relaxed font-grotesk max-w-xl mb-4 pr-0 sm:pr-20">
+              Passionate about creating exceptional digital experiences with cutting-edge technologies.
+              I specialize in building scalable, user-centric applications that bridge innovation and functionality.
+            </p>
+            <div className="flex items-center gap-2 text-brutal-black dark:text-dark-text font-mono text-sm">
+              <MapPin size={16} className="text-brutal-pink flex-shrink-0" />
+              <span>Kanpur, Uttar Pradesh, India</span>
+            </div>
+          </div>
 
-        {/* Enhanced Stats */}
-        <div className="grid grid-cols-3 gap-4 mt-8">
+          {/* ===== TILES 5-7: Stats (3 small tiles) ===== */}
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="group text-center p-4 bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/20 relative overflow-hidden"
+              className={`${stat.color} ${stat.textColor} border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal dark:shadow-brutal-dark p-4 sm:p-5 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200 group`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-purple-500/5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-              <div className="relative z-10">
-                <div className="flex justify-center mb-2 text-cyan-400 group-hover:animate-bounce">
-                  {stat.icon}
-                </div>
-                <div className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">{stat.value}</div>
-                <div className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{stat.label}</div>
+              <div className="mb-1 opacity-80 group-hover:animate-bounce">
+                {stat.icon}
+              </div>
+              <div className="text-3xl sm:text-4xl font-grotesk font-extrabold leading-none mb-1">
+                {stat.value}
+              </div>
+              <div className="text-xs sm:text-sm font-mono font-semibold uppercase tracking-wider opacity-80">
+                {stat.label}
               </div>
             </div>
           ))}
+
+          {/* ===== TILE 8: CTA Buttons (medium — spans 2+ cols on larger) ===== */}
+          <div className="sm:col-span-2 lg:col-span-2 bg-cream-dark dark:bg-dark-surface border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal dark:shadow-brutal-dark p-5 sm:p-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a
+              href="/Ref resume 7.pdf"
+              download
+              className="btn-brutal flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 font-grotesk font-bold text-base w-full sm:w-auto justify-center"
+            >
+              <Download size={20} />
+              <span>Download Resume</span>
+            </a>
+            <button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="btn-brutal-outline flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 font-grotesk font-bold text-base w-full sm:w-auto justify-center"
+            >
+              <Mail size={20} />
+              <span>Get In Touch</span>
+            </button>
+          </div>
+
+          {/* ===== TILE 9: Fun small accent tile ===== */}
+          <div className="bg-brutal-purple text-white border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal dark:shadow-brutal-dark p-4 sm:p-5 flex flex-col items-center justify-center text-center">
+            <span className="text-3xl sm:text-4xl mb-1 animate-float">🎯</span>
+            <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider">Let's Build<br/>Something</span>
+          </div>
         </div>
       </div>
-    </div>
 
-        {/* Enhanced Scroll Indicator */ }
-  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
-    <button
-      onClick={scrollToAbout}
-      className="group flex flex-col items-center gap-2 text-gray-400 hover:text-cyan-400 transition-all duration-300 hover:scale-110"
-    >
-      <span className="text-sm group-hover:animate-pulse">Scroll Down</span>
-      <div className="relative">
-        <ChevronDown size={24} className="group-hover:animate-bounce" />
-        <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2">
+        <button
+          onClick={scrollToAbout}
+          className="group flex flex-col items-center gap-1 text-brutal-black dark:text-dark-text hover:-translate-y-1 transition-transform duration-200"
+        >
+          <span className="text-xs font-mono font-bold uppercase tracking-widest">Scroll</span>
+          <ChevronDown size={24} className="animate-bounce" strokeWidth={3} />
+        </button>
       </div>
-    </button>
-  </div>
-      </div >
-
-  <style jsx>{`
-        @keyframes float-particle {
-          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-          25% { transform: translateY(-10px) translateX(5px) rotate(90deg); }
-          50% { transform: translateY(-20px) translateX(-5px) rotate(180deg); }
-          75% { transform: translateY(-10px) translateX(-10px) rotate(270deg); }
-        }
-        
-        @keyframes matrix-fall {
-          0% { transform: translateY(-100vh); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { transform: translateY(100vh); opacity: 0; }
-        }
-        
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.2; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(1.1); }
-        }
-        
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        
-        @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        
-        @keyframes code-float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
-          50% { transform: translateY(-30px) rotate(180deg); opacity: 0.4; }
-        }
-        
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes pulse-glow {
-          0%, 100% { opacity: 0.2; filter: blur(20px); }
-          50% { opacity: 0.4; filter: blur(15px); }
-        }
-        
-        @keyframes fade-in-out {
-          0% { opacity: 0; transform: translateY(10px); }
-          10%, 90% { opacity: 1; transform: translateY(0px); }
-          100% { opacity: 0; transform: translateY(-10px); }
-        }
-        
-        @keyframes slide-up {
-          0% { opacity: 0; transform: translateY(30px); }
-          100% { opacity: 1; transform: translateY(0px); }
-        }
-        
-        .animate-float-particle {
-          animation: float-particle 8s ease-in-out infinite;
-        }
-        
-        .animate-matrix-fall {
-          animation: matrix-fall 10s linear infinite;
-        }
-        
-        .animate-pulse-slow {
-          animation: pulse-slow 4s ease-in-out infinite;
-        }
-        
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-        
-        .animate-gradient-x {
-          background-size: 200% 200%;
-          animation: gradient-x 4s ease infinite;
-        }
-        
-        .animate-code-float {
-          animation: code-float 6s ease-in-out infinite;
-        }
-        
-        .animate-bounce-slow {
-          animation: bounce-slow 3s ease-in-out infinite;
-        }
-        
-        .animate-pulse-glow {
-          animation: pulse-glow 3s ease-in-out infinite;
-        }
-        
-        .animate-fade-in-out {
-          animation: fade-in-out 3s ease-in-out infinite;
-        }
-        
-        .animate-slide-up {
-          animation: slide-up 1s ease-out forwards;
-        }
-      `}</style>
-    </section >
+    </section>
   );
 };
 

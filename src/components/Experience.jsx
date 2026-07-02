@@ -134,6 +134,15 @@ const Experience = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Helper to get skill category emoji
+  const getSkillEmoji = (icon) => {
+    if (icon.type === Code) return '💻';
+    if (icon.type === Globe) return '🌐';
+    if (icon.type === Server) return '⚙️';
+    if (icon.type === Database) return '🗄️';
+    return '💻';
+  };
+
   const SkillBar = ({ skill, index }) => (
     <div
       className="transform transition-all duration-1000"
@@ -145,14 +154,14 @@ const Experience = () => {
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span style={{ color: skill.color }}>{skill.icon}</span>
-          <span className="text-white font-medium">{skill.name}</span>
+          <span className="text-lg">{getSkillEmoji(skill.icon)}</span>
+          <span className="text-brutal-black dark:text-dark-text font-mono font-bold text-sm">{skill.name}</span>
         </div>
-        {/* <span className="text-cyan-400 font-semibold">{skill.level}%</span> */}
+        <span className="text-brutal-black dark:text-dark-text font-mono font-bold text-sm">{skill.level}%</span>
       </div>
-      <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+      <div className="h-4 bg-white dark:bg-dark-surface border-3 border-brutal-black dark:border-dark-border rounded-md overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full transition-all duration-1000 ease-out"
+          className="h-full bg-brutal-lime transition-all duration-1000 ease-out"
           style={{
             width: isVisible ? `${skill.level}%` : '0%',
             transitionDelay: `${index * 100 + 500}ms`
@@ -162,32 +171,37 @@ const Experience = () => {
     </div>
   );
 
+  // Accent colors cycling for experience cards
+  const accentColors = ['border-l-brutal-lime', 'border-l-brutal-pink', 'border-l-brutal-blue'];
+  const accentBgs = ['bg-brutal-lime', 'bg-brutal-pink', 'bg-brutal-blue'];
+
   return (
-    <section id="about-section" className="py-20 bg-slate-900 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl"></div>
-      </div>
+    <section id="about-section" className="py-20 bg-cream dark:bg-dark-bg relative overflow-hidden">
+      {/* Dot Grid Background */}
+      <div className="dot-grid absolute inset-0"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10" id="about">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-2 text-cyan-400 text-lg font-medium mb-4">
-            <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400"></div>
+          <div className="flex items-center justify-center gap-3 text-brutal-black dark:text-dark-text text-lg font-mono font-bold mb-4 uppercase tracking-widest">
+            <div className="w-8 h-1 bg-brutal-black dark:bg-dark-text"></div>
             <span>About Me</span>
-            <div className="w-8 h-px bg-gradient-to-r from-cyan-400 to-transparent"></div>
+            <div className="w-8 h-1 bg-brutal-black dark:bg-dark-text"></div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Know More <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">About Me</span>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-grotesk font-black text-brutal-black dark:text-dark-text mb-4">
+            Know More{' '}
+            <span className="relative inline-block">
+              <span className="relative z-10">About Me</span>
+              <span className="absolute bottom-1 left-0 w-full h-4 bg-brutal-lime -z-0"></span>
+            </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-brutal-black/70 dark:text-dark-text/70 max-w-3xl mx-auto font-grotesk">
             Software developer with expertise in modern web technologies and a track record of delivering exceptional digital solutions.
           </p>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12">
           {[
             { id: 'about', label: 'About', icon: <Award size={20} /> },
             { id: 'skills', label: 'Skills', icon: <Code size={20} /> },
@@ -197,10 +211,10 @@ const Experience = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-md font-grotesk font-bold text-xs sm:text-sm uppercase tracking-wide transition-all duration-200 border-3 border-brutal-black dark:border-dark-border ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg shadow-cyan-500/25'
-                  : 'bg-slate-800 text-gray-300 hover:text-white hover:bg-slate-700'
+                  ? 'bg-brutal-lime text-brutal-black shadow-brutal dark:shadow-brutal-dark translate-x-0 translate-y-0'
+                  : 'bg-white dark:bg-dark-card text-brutal-black dark:text-dark-text hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal dark:hover:shadow-brutal-dark'
               }`}
               aria-pressed={activeTab === tab.id}
               role="tab"
@@ -215,63 +229,80 @@ const Experience = () => {
         <div className="min-h-[600px]" role="tabpanel">
           {/* About Tab */}
           {activeTab === 'about' && (
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Left Column — About Text Cards */}
               <div className="space-y-6">
-                <h3 className="text-3xl font-bold text-white">
-                  I'm a <span className="text-cyan-400">Full Stack Developer</span> with a curiosity of creating amazing digital experiences.
-                </h3>
-                <div className="space-y-4 text-gray-300 text-lg leading-relaxed">
-                  <p>
-                    I specialize in building scalable, 
-                    user-friendly applications using modern technologies like React, Node.js, and MongoDB.
-                  </p>
-                  <p>
-                    I believe in writing clean, maintainable code and following best practices to deliver 
-                    high-quality solutions matching client's expectations.
-                  </p>
-                  <p>
-                    When I'm not coding, you can find me exploring new technologies, contributing to open-source 
-                    projects, or drinking coffee and binge watching a youtube video.
-                  </p>
+                <div className="bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md p-6 shadow-brutal dark:shadow-brutal-dark">
+                  <h3 className="text-2xl md:text-3xl font-grotesk font-black text-brutal-black dark:text-dark-text mb-4">
+                    I'm a{' '}
+                    <span className="relative inline-block">
+                      <span className="relative z-10">Full Stack Developer</span>
+                      <span className="absolute bottom-0 left-0 w-full h-3 bg-brutal-lime -z-0"></span>
+                    </span>{' '}
+                    with a curiosity of creating amazing digital experiences.
+                  </h3>
+                </div>
+
+                <div className="bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md p-6 shadow-brutal-sm dark:shadow-brutal-dark-sm">
+                  <div className="space-y-4 text-brutal-black dark:text-dark-text text-lg leading-relaxed font-grotesk">
+                    <p>
+                      I specialize in building scalable, 
+                      user-friendly applications using modern technologies like React, Node.js, and MongoDB.
+                    </p>
+                    <p>
+                      I believe in writing clean, maintainable code and following best practices to deliver 
+                      high-quality solutions matching client's expectations.
+                    </p>
+                    <p>
+                      When I'm not coding, you can find me exploring new technologies, contributing to open-source 
+                      projects, or drinking coffee and binge watching a youtube video.
+                    </p>
+                  </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-6 mt-8">
-                  <div className="space-y-2">
-                    <div className="text-gray-400">Name:</div>
-                    <div className="text-white font-medium">Vishwanath</div>
+                {/* Personal Info Bento Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="bg-brutal-lime border-3 border-brutal-black rounded-md p-4 shadow-brutal-sm">
+                    <div className="text-brutal-black/60 font-mono text-xs uppercase tracking-wide mb-1">Name</div>
+                    <div className="text-brutal-black font-grotesk font-bold">Vishwanath</div>
                   </div>
-                  <div className="space-y-2">
-                    <div className="text-gray-400">Email:</div>
-                    <div className="text-white font-medium">tiwarivishwanath5395@gmail.com</div>
+                  <div className="bg-brutal-pink border-3 border-brutal-black rounded-md p-4 shadow-brutal-sm">
+                    <div className="text-brutal-black/60 font-mono text-xs uppercase tracking-wide mb-1">Email</div>
+                    <div className="text-brutal-black font-grotesk font-bold text-xs sm:text-sm break-all">tiwarivishwanath5395@gmail.com</div>
                   </div>
-                  <div className="space-y-2">
-                    <div className="text-gray-400">Location:</div>
-                    <div className="text-white font-medium">Kanpur, UP, India</div>
+                  <div className="bg-brutal-blue border-3 border-brutal-black rounded-md p-4 shadow-brutal-sm">
+                    <div className="text-white/70 font-mono text-xs uppercase tracking-wide mb-1">Location</div>
+                    <div className="text-white font-grotesk font-bold">Kanpur, UP, India</div>
                   </div>
-                  
                 </div>
               </div>
               
+              {/* Right Column — Code Editor Card */}
               <div className="relative">
-                <div className="w-full h-96 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700">
-                  <div className="h-full bg-slate-900/50 rounded-xl p-6 backdrop-blur-sm">
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      </div>
-                      <div className="font-mono text-sm space-y-2">
-                        <div className="text-cyan-400">const developer = {'{'}</div>
-                        <div className="text-gray-300 ml-4">name: "Vishwanath",</div>
-                        <div className="text-gray-300 ml-4">role: "Full Stack Developer",</div>
-                        <div className="text-gray-300 ml-4">skills: ["React", "Node.js", "MongoDB"],</div>
-                        <div className="text-gray-300 ml-4">passion: "Creating amazing apps",</div>
-                        <div className="text-gray-300 ml-4">coffee: "☕☕☕☕☕"</div>
-                        <div className="text-cyan-400">{'}'}</div>
-                      </div>
+                <div className="w-full bg-white border-3 border-brutal-black rounded-md shadow-brutal-lg overflow-hidden">
+                  {/* Title bar */}
+                  <div className="flex items-center gap-2 px-4 py-3 bg-brutal-black">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <span className="ml-3 text-white/50 font-mono text-xs">developer.js</span>
+                  </div>
+                  {/* Code content */}
+                  <div className="p-6 bg-brutal-black">
+                    <div className="font-mono text-sm space-y-2">
+                      <div className="text-brutal-lime">const developer = {'{'}</div>
+                      <div className="text-white ml-4">name: <span className="text-brutal-yellow">"Vishwanath"</span>,</div>
+                      <div className="text-white ml-4">role: <span className="text-brutal-yellow">"Full Stack Developer"</span>,</div>
+                      <div className="text-white ml-4">skills: [<span className="text-brutal-yellow">"React"</span>, <span className="text-brutal-yellow">"Node.js"</span>, <span className="text-brutal-yellow">"MongoDB"</span>],</div>
+                      <div className="text-white ml-4">passion: <span className="text-brutal-yellow">"Creating amazing apps"</span>,</div>
+                      <div className="text-white ml-4">coffee: <span className="text-brutal-yellow">"☕☕☕☕☕"</span></div>
+                      <div className="text-brutal-lime">{'}'}</div>
                     </div>
                   </div>
+                </div>
+                {/* Decorative sticker */}
+                <div className="absolute -top-3 -right-3 bg-brutal-yellow border-3 border-brutal-black rounded-md px-3 py-1 font-mono text-xs font-bold rotate-6 shadow-brutal-sm">
+                  {'</>'}  dev.js
                 </div>
               </div>
             </div>
@@ -279,10 +310,42 @@ const Experience = () => {
 
           {/* Skills Tab */}
           {activeTab === 'skills' && (
-            <div className="grid lg:grid-cols-2 gap-8">
-              {skills.map((skill, index) => (
-                <SkillBar key={skill.name} skill={skill} index={index} />
-              ))}
+            <div className="space-y-8">
+              {/* Code Languages */}
+              <div className="bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md p-6 shadow-brutal dark:shadow-brutal-dark">
+                <h3 className="font-grotesk font-black text-xl text-brutal-black dark:text-dark-text mb-6 flex items-center gap-2">
+                  <span className="text-2xl">💻</span> Programming Languages
+                </h3>
+                <div className="grid lg:grid-cols-2 gap-x-8 gap-y-4">
+                  {skills.filter((_, i) => i < 6).map((skill, index) => (
+                    <SkillBar key={skill.name} skill={skill} index={index} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Web / Frameworks */}
+              <div className="bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md p-6 shadow-brutal dark:shadow-brutal-dark">
+                <h3 className="font-grotesk font-black text-xl text-brutal-black dark:text-dark-text mb-6 flex items-center gap-2">
+                  <span className="text-2xl">🌐</span> Web & Frameworks
+                </h3>
+                <div className="grid lg:grid-cols-2 gap-x-8 gap-y-4">
+                  {skills.filter((_, i) => i >= 6 && i < 12).map((skill, index) => (
+                    <SkillBar key={skill.name} skill={skill} index={index} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Databases */}
+              <div className="bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md p-6 shadow-brutal dark:shadow-brutal-dark">
+                <h3 className="font-grotesk font-black text-xl text-brutal-black dark:text-dark-text mb-6 flex items-center gap-2">
+                  <span className="text-2xl">🗄️</span> Databases
+                </h3>
+                <div className="grid lg:grid-cols-2 gap-x-8 gap-y-4">
+                  {skills.filter((_, i) => i >= 12).map((skill, index) => (
+                    <SkillBar key={skill.name} skill={skill} index={index} />
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
@@ -292,17 +355,18 @@ const Experience = () => {
               {experiences.map((exp, index) => (
                 <div
                   key={index}
-                  className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-cyan-500/30 transition-all duration-300"
+                  className={`bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md p-4 sm:p-8 shadow-brutal dark:shadow-brutal-dark border-l-[8px] ${accentColors[index % accentColors.length]} hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200`}
                 >
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-2">{exp.title}</h3>
-                      <div className="flex items-center gap-2 text-cyan-400 text-lg font-medium mb-2">
-                        <span>{exp.company}</span>
-                        <span className="text-gray-500">•</span>
-                        <span className="text-gray-400">{exp.type}</span>
+                      <h3 className="text-2xl font-grotesk font-black text-brutal-black dark:text-dark-text mb-2">{exp.title}</h3>
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="font-grotesk font-bold text-lg text-brutal-black dark:text-dark-text">{exp.company}</span>
+                        <span className={`${accentBgs[index % accentBgs.length]} border-3 border-brutal-black rounded-md px-3 py-0.5 font-mono text-xs font-bold rotate-[-2deg] inline-block shadow-brutal-sm`}>
+                          {exp.type}
+                        </span>
                       </div>
-                      <div className="flex items-center gap-4 text-gray-400">
+                      <div className="flex items-center gap-4 text-brutal-black/60 dark:text-dark-text/60 font-mono text-sm">
                         <div className="flex items-center gap-1">
                           <Calendar size={16} />
                           <span>{exp.duration}</span>
@@ -315,14 +379,14 @@ const Experience = () => {
                     </div>
                   </div>
                   
-                  <p className="text-gray-300 mb-6">{exp.description}</p>
+                  <p className="text-brutal-black/80 dark:text-dark-text/80 mb-6 font-grotesk text-lg">{exp.description}</p>
                   
                   <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-white mb-3">Key Achievements:</h4>
+                    <h4 className="text-lg font-grotesk font-bold text-brutal-black dark:text-dark-text mb-3">Key Achievements:</h4>
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, i) => (
-                        <li key={i} className="flex items-start gap-2 text-gray-300">
-                          <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
+                        <li key={i} className="flex items-start gap-2 text-brutal-black/80 dark:text-dark-text/80 font-grotesk">
+                          <div className="w-2 h-2 bg-brutal-lime border border-brutal-black rounded-sm mt-2 flex-shrink-0"></div>
                           <span>{achievement}</span>
                         </li>
                       ))}
@@ -333,7 +397,7 @@ const Experience = () => {
                     {exp.technologies.map((tech, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full text-sm border border-cyan-500/20"
+                        className="chip-brutal"
                       >
                         {tech}
                       </span>
@@ -350,49 +414,65 @@ const Experience = () => {
               {education.map((edu, index) => (
                 <div
                   key={index}
-                  className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50 hover:border-purple-500/30 transition-all duration-300"
+                  className="bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md p-8 shadow-brutal dark:shadow-brutal-dark hover:-translate-y-1 hover:shadow-brutal-lg transition-all duration-200"
                 >
-                  <h3 className="text-2xl font-bold text-white mb-4">{edu.degree}</h3>
-                  <div className="flex items-center gap-2 text-purple-400 text-lg font-medium mb-2">
-                    <span>{edu.institution}</span>
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-2xl font-grotesk font-black text-brutal-black dark:text-dark-text mb-2">{edu.degree}</h3>
+                      <div className="flex items-center gap-2 font-grotesk font-bold text-lg text-brutal-black dark:text-dark-text mb-2">
+                        <span>{edu.institution}</span>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-4 text-brutal-black/60 dark:text-dark-text/60 font-mono text-sm mb-4">
+                        <div className="flex items-center gap-1">
+                          <Calendar size={16} />
+                          <span>{edu.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MapPin size={16} />
+                          <span>{edu.location}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Award size={16} />
+                          <span className="font-bold text-brutal-black dark:text-dark-text">{edu.grade}</span>
+                        </div>
+                      </div>
+                      <p className="text-brutal-black/80 dark:text-dark-text/80 font-grotesk">{edu.description}</p>
+                    </div>
+                    {/* Decorative sticker for grade */}
+                    <div className="bg-brutal-lime border-3 border-brutal-black rounded-md px-4 py-2 font-mono text-sm font-bold rotate-3 shadow-brutal-sm hidden sm:block">
+                      🎓 {edu.grade}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-4 text-gray-400 mb-4">
-                    <div className="flex items-center gap-1">
-                      <Calendar size={16} />
-                      <span>{edu.duration}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <MapPin size={16} />
-                      <span>{edu.location}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Award size={16} />
-                      <span>{edu.grade}</span>
-                    </div>
-                  </div>
-                  <p className="text-gray-300">{edu.description}</p>
                 </div>
               ))}
               
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
-                <h3 className="text-2xl font-bold text-white mb-6">Certifications</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {certifications.map((cert, index) => (
-                    <div
-                      key={index}
-                      className="bg-slate-900/50 rounded-xl p-6 border border-slate-600/30 hover:border-cyan-500/30 transition-all duration-300"
-                    >
-                      <div className="flex items-center gap-2 mb-3">
-                        <Award size={20} className="text-cyan-400" />
-                        <h4 className="font-semibold text-white">{cert.name}</h4>
+              {/* Certifications Section */}
+              <div className="bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md p-8 shadow-brutal dark:shadow-brutal-dark">
+                <h3 className="text-2xl font-grotesk font-black text-brutal-black dark:text-dark-text mb-6 flex items-center gap-2">
+                  <span className="text-2xl">🏆</span> Certifications
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {certifications.map((cert, index) => {
+                    const certColors = ['bg-brutal-lime', 'bg-brutal-pink', 'bg-brutal-blue', 'bg-brutal-yellow'];
+                    return (
+                      <div
+                        key={index}
+                        className={`${certColors[index % certColors.length]} border-3 border-brutal-black rounded-md p-5 shadow-brutal-sm hover:-translate-y-1 hover:shadow-brutal transition-all duration-200`}
+                      >
+                        <div className="flex items-center gap-2 mb-3">
+                          <Award size={20} className="text-brutal-black" />
+                          <h4 className="font-grotesk font-bold text-brutal-black text-sm">{cert.name}</h4>
+                        </div>
+                        <p className="text-brutal-black/70 font-mono text-xs mb-2">{cert.issuer}</p>
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-brutal-black/60 font-mono text-xs">{cert.date}</span>
+                          {cert.credentialId && (
+                            <span className="text-brutal-black font-mono text-xs font-bold">{cert.credentialId}</span>
+                          )}
+                        </div>
                       </div>
-                      <p className="text-gray-400 mb-2">{cert.issuer}</p>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-500">{cert.date}</span>
-                        <span className="text-cyan-400">{cert.credentialId}</span>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>

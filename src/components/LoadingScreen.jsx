@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Code, Sparkles } from 'lucide-react';
 
 const LoadingScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -38,119 +37,70 @@ const LoadingScreen = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 z-50 flex items-center justify-center overflow-hidden">
-      {/* Animated Background Particles */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-pulse opacity-50"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
+    <div className="fixed inset-0 bg-cream dark:bg-dark-bg z-50 flex items-center justify-center overflow-hidden">
+      {/* Dot grid background */}
+      <div className="absolute inset-0 dot-grid opacity-40"></div>
 
       <div className="text-center relative z-10">
-        {/* Main Loading Spinner */}
-        <div className="relative w-40 h-40 mx-auto mb-8">
-          {/* Outer Ring */}
-          <div className="absolute inset-0 border-4 border-gray-700/30 rounded-full"></div>
-          
-          {/* Spinning Ring */}
-          <div className="absolute inset-0 border-4 border-transparent border-t-cyan-400 border-r-cyan-400 rounded-full animate-spin"></div>
-          
-          {/* Inner Pulsing Ring */}
-          <div className="absolute inset-4 border-2 border-transparent border-b-purple-500 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '3s' }}></div>
-          
-          {/* Center Icon Container */}
-          <div className="absolute inset-8 bg-gradient-to-br from-cyan-400/20 to-purple-600/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-            <Code className="text-cyan-400 animate-pulse" size={40} />
-          </div>
-          
-          {/* Floating Sparkles */}
-          <Sparkles 
-            className="absolute -top-2 -right-2 text-purple-400 animate-bounce" 
-            size={20}
-            style={{ animationDelay: '0.5s' }}
-          />
-          <Sparkles 
-            className="absolute -bottom-2 -left-2 text-cyan-400 animate-bounce" 
-            size={16}
-            style={{ animationDelay: '1.5s' }}
-          />
+        {/* Big Bold Name with bouncing emoji */}
+        <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-grotesk font-black text-brutal-black dark:text-dark-text tracking-tight uppercase">
+            VISHWANATH
+          </h1>
+          <span
+            className="text-3xl sm:text-5xl md:text-6xl inline-block animate-bounce-in"
+            style={{ animationIterationCount: 'infinite', animationDuration: '1.2s' }}
+          >
+            🚀
+          </span>
         </div>
 
-        {/* Loading Text */}
-        <div className="space-y-4 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-pulse">
-            Vishwanath's Portfolio
-          </h2>
-          
-          <p 
+        {/* Cycling loading message */}
+        <div className="mb-10">
+          <p
             key={currentText}
-            className="text-lg text-gray-300 font-mono animate-fade-in"
+            className="text-lg md:text-xl font-mono text-brutal-black dark:text-dark-text animate-slide-up"
           >
-            {loadingTexts[currentText]}
+            {`> ${loadingTexts[currentText]}`}
           </p>
         </div>
 
-        {/* Progress Bar */}
-        <div className="w-80 max-w-sm mx-auto">
-          <div className="flex justify-between text-sm text-gray-400 mb-2">
-            <span>Loading...</span>
-            <span>{Math.round(loadingProgress)}%</span>
+        {/* Brutalist Progress Bar */}
+        <div className="w-64 sm:w-80 md:w-96 max-w-md mx-auto mb-6">
+          <div className="flex justify-between text-sm font-mono text-brutal-black dark:text-dark-text mb-2 font-bold">
+            <span>LOADING</span>
+            <span>{Math.round(Math.min(loadingProgress, 100))}%</span>
           </div>
-          
-          <div className="h-2 bg-slate-800 rounded-full overflow-hidden shadow-inner border border-slate-700">
-            <div 
-              className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 transition-all duration-300 ease-out relative"
+
+          <div className="h-6 bg-white dark:bg-dark-surface border-3 border-brutal-black dark:border-dark-border rounded-md shadow-brutal dark:shadow-brutal-dark overflow-hidden">
+            <div
+              className="h-full bg-brutal-lime transition-all duration-300 ease-out"
               style={{ width: `${Math.min(loadingProgress, 100)}%` }}
-            >
-              {/* Shimmer Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
-            </div>
+            ></div>
           </div>
         </div>
 
-        {/* Loading Dots */}
-        <div className="flex justify-center space-x-2 mt-6">
+        {/* Bouncing Black Dots */}
+        <div className="flex justify-center space-x-3 mt-8">
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
-              className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce opacity-75"
-              style={{ 
+              className="w-4 h-4 bg-brutal-black dark:bg-dark-text rounded-md animate-bounce"
+              style={{
                 animationDelay: `${i * 0.2}s`,
                 animationDuration: '1.4s'
               }}
             />
           ))}
         </div>
-      </div>
 
-      <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.5s ease-out;
-        }
-        
-        .animate-shimmer {
-          animation: shimmer 2s infinite;
-        }
-      `}</style>
+        {/* Fun bottom sticker */}
+        <div className="mt-10">
+          <span className="inline-block bg-brutal-pink text-white font-grotesk font-bold text-sm px-4 py-2 border-3 border-brutal-black dark:border-dark-border shadow-brutal-sm dark:shadow-brutal-dark-sm rounded-md rotate-[-2deg]">
+            ☕ Brewing something cool...
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

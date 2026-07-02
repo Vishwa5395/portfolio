@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Experience from './components/Experience';
@@ -29,15 +30,17 @@ const App = () => {
   if (loading) return <LoadingScreen />;
 
   return (
-    <div className="bg-slate-900 text-white overflow-x-hidden scroll-smooth">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        {/* Optional: fallback route */}
-        <Route path="*" element={<Home />} />
-      </Routes>
-    </div>
+    <ThemeProvider>
+      <div className="bg-cream dark:bg-dark-bg text-brutal-black dark:text-dark-text overflow-x-hidden scroll-smooth font-grotesk transition-colors duration-300">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          {/* Optional: fallback route */}
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 };
 

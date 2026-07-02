@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   ExternalLink,
   Github,
@@ -8,6 +8,8 @@ import {
   Star,
   GitBranch,
 } from "lucide-react";
+
+const HOVER_EMOJIS = ["🚀", "⭐", "💡", "🔥", "🎯"];
 
 const ProjectCard = ({ project, index = 0 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -39,21 +41,29 @@ const ProjectCard = ({ project, index = 0 }) => {
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
       case "completed":
-        return "text-green-400 bg-green-500/10 border-green-500/30";
+        return "bg-brutal-mint text-brutal-black border-brutal-black";
       case "in-progress":
-        return "text-yellow-400 bg-yellow-500/10 border-yellow-500/30";
+        return "bg-brutal-yellow text-brutal-black border-brutal-black";
       case "planning":
-        return "text-blue-400 bg-blue-500/10 border-blue-500/30";
+        return "bg-brutal-blue text-white border-brutal-black";
       default:
-        return "text-gray-400 bg-gray-500/10 border-gray-500/30";
+        return "bg-white text-brutal-black border-brutal-black";
     }
   };
 
+  // Pick a stable random emoji per card based on index
+  const hoverEmoji = useMemo(
+    () => HOVER_EMOJIS[index % HOVER_EMOJIS.length],
+    [index]
+  );
+
   return (
     <div
-      className={`group relative flex flex-col justify-between h-[480px] bg-slate-800/50 border border-white/10 rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl ${
-        featured ? "ring-2 ring-cyan-500/20" : ""
-      }`}
+      className={`group relative flex flex-col justify-between min-h-[400px] sm:h-[480px] bg-white dark:bg-dark-card border-3 border-brutal-black dark:border-dark-border rounded-md overflow-hidden transition-all duration-200 ${
+        isHovered
+          ? "-translate-x-[2px] -translate-y-[2px] shadow-brutal-lg dark:shadow-brutal-dark-lg"
+          : "shadow-brutal dark:shadow-brutal-dark"
+      } ${featured ? "ring-2 ring-brutal-lime" : ""}`}
       style={{
         animationDelay: `${index * 0.1}s`,
         animation: "fadeInUp 0.6s ease-out forwards",
@@ -61,17 +71,17 @@ const ProjectCard = ({ project, index = 0 }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Featured Badge */}
+      {/* Featured Badge — sticker style */}
       {featured && (
-        <div className="absolute top-4 left-4 z-20 flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-cyan-500 to-purple-600 text-white text-sm font-medium rounded-full">
+        <div className="absolute top-3 left-3 z-20 flex items-center gap-1 px-3 py-1 bg-brutal-lime text-brutal-black text-sm font-bold font-grotesk border-3 border-brutal-black rounded-md shadow-brutal-sm rotate-[-3deg]">
           <Star size={14} fill="currentColor" />
           Featured
         </div>
       )}
 
-      {/* Status Badge */}
+      {/* Status Badge — chip-brutal */}
       <div
-        className={`absolute top-4 right-4 z-20 px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+        className={`absolute top-3 right-3 z-20 px-3 py-1 rounded-md text-xs font-bold font-mono border-2 ${getStatusColor(
           status
         )}`}
       >
@@ -79,27 +89,27 @@ const ProjectCard = ({ project, index = 0 }) => {
       </div>
 
       {/* Image Container */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-48 overflow-hidden border-b-3 border-brutal-black dark:border-dark-border">
         {/* Loading Placeholder */}
         {!imageLoaded && (
-          <div className="absolute inset-0 bg-slate-700/50 animate-pulse flex items-center justify-center">
-            <div className="w-12 h-12 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
+          <div className="absolute inset-0 bg-cream-dark dark:bg-dark-surface animate-pulse flex items-center justify-center">
+            <div className="w-10 h-10 border-3 border-brutal-black border-t-brutal-lime rounded-md animate-spin"></div>
           </div>
         )}
 
         <img
           src={image}
           alt={title}
-          className={`w-full h-full object-cover transition-all duration-700 ${
+          className={`w-full h-full object-cover transition-all duration-500 ${
             imageLoaded ? "opacity-100" : "opacity-0"
-          } ${isHovered ? "scale-110" : "scale-100"}`}
+          } ${isHovered ? "scale-105" : "scale-100"}`}
           onLoad={handleImageLoad}
         />
 
-        {/* Overlay */}
+        {/* Overlay — simple semi-transparent black on hover, NO gradient */}
         <div
-          className={`absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent transition-all duration-300 ${
-            isHovered ? "opacity-100" : "opacity-60"
+          className={`absolute inset-0 bg-brutal-black transition-all duration-300 ${
+            isHovered ? "opacity-50" : "opacity-0"
           }`}
         />
 
@@ -114,14 +124,11 @@ const ProjectCard = ({ project, index = 0 }) => {
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-full hover:bg-cyan-500 hover:border-cyan-500 transition-all duration-300"
+              className="flex items-center gap-2 bg-brutal-lime text-brutal-black px-4 py-2 rounded-md border-3 border-brutal-black shadow-brutal-sm font-bold font-mono text-sm hover:-translate-y-[2px] hover:shadow-brutal transition-all duration-200"
               onClick={(e) => e.stopPropagation()}
             >
-              <ExternalLink
-                size={16}
-                className="group-hover/btn:scale-110 transition-transform duration-300"
-              />
-              <span className="text-sm font-medium">Live Demo</span>
+              <ExternalLink size={16} />
+              <span>Live Demo</span>
             </a>
           )}
 
@@ -129,49 +136,55 @@ const ProjectCard = ({ project, index = 0 }) => {
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/btn flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-full hover:bg-purple-500 hover:border-purple-500 transition-all duration-300"
+            className="flex items-center gap-2 bg-white text-brutal-black px-4 py-2 rounded-md border-3 border-brutal-black shadow-brutal-sm font-bold font-mono text-sm hover:-translate-y-[2px] hover:shadow-brutal transition-all duration-200"
             onClick={(e) => e.stopPropagation()}
           >
-            <Github
-              size={16}
-              className="group-hover/btn:scale-110 transition-transform duration-300"
-            />
-            <span className="text-sm font-medium">Code</span>
+            <Github size={16} />
+            <span>Code</span>
           </a>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-6 flex flex-col justify-between flex-grow">
+      <div className="p-3 sm:p-5 flex flex-col justify-between flex-grow">
         {/* Category & Date */}
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2 text-cyan-400 text-sm">
-            <Tag size={14} />
-            <span>{category}</span>
+          <div className="flex items-center gap-2 text-brutal-black dark:text-dark-text font-mono text-sm">
+            <Tag size={14} className="text-brutal-pink" />
+            <span className="font-bold">{category}</span>
           </div>
-          <div className="flex items-center gap-1 text-gray-400 text-sm">
+          <div className="flex items-center gap-1 text-brutal-black dark:text-dark-text font-mono text-sm opacity-70">
             <Calendar size={14} />
             <span>{date}</span>
           </div>
         </div>
 
-        {/* Title */}
-        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300">
+        {/* Title with hover emoji */}
+        <h3 className="text-xl font-bold text-brutal-black dark:text-dark-text font-grotesk mb-3 flex items-center gap-2">
           {title}
+          <span
+            className={`transition-all duration-300 ${
+              isHovered
+                ? "opacity-100 translate-x-0 animate-wobble"
+                : "opacity-0 -translate-x-2"
+            }`}
+          >
+            {hoverEmoji}
+          </span>
         </h3>
 
         {/* Description */}
-        <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
+        <p className="text-brutal-black dark:text-dark-text text-sm leading-relaxed mb-4 line-clamp-3 opacity-75">
           {description}
         </p>
 
-        {/* Technologies */}
+        {/* Technologies — chip-brutal */}
         <div className="flex flex-wrap gap-2 mb-4">
           {(showAllTech ? technologies : technologies.slice(0, 4)).map(
             (tech, techIndex) => (
               <span
                 key={techIndex}
-                className="px-2 py-1 bg-slate-700/50 text-gray-300 text-xs rounded-md border border-slate-600/30 hover:border-cyan-500/30 hover:text-cyan-400 transition-all duration-300"
+                className="chip-brutal"
               >
                 {tech}
               </span>
@@ -181,7 +194,7 @@ const ProjectCard = ({ project, index = 0 }) => {
           {technologies.length > 4 && (
             <button
               onClick={() => setShowAllTech(!showAllTech)}
-              className="px-2 py-1 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 text-cyan-400 text-xs rounded-md border border-cyan-500/30 transition-all duration-300"
+              className="px-2 py-1 bg-brutal-lime text-brutal-black text-xs rounded-md border-2 border-brutal-black font-bold font-mono hover:-translate-y-[1px] hover:shadow-brutal-sm transition-all duration-200"
             >
               {showAllTech ? "Show less" : `+${technologies.length - 4} more`}
             </button>
@@ -190,7 +203,7 @@ const ProjectCard = ({ project, index = 0 }) => {
 
         {/* Stats */}
         {(stats.views > 0 || stats.stars > 0 || stats.forks > 0) && (
-          <div className="flex items-center gap-4 text-gray-400 text-sm">
+          <div className="flex items-center gap-4 text-brutal-black dark:text-dark-text text-sm font-mono border-t-2 border-brutal-black dark:border-dark-border pt-3">
             {stats.views > 0 && (
               <div className="flex items-center gap-1">
                 <Eye size={14} />
@@ -212,13 +225,6 @@ const ProjectCard = ({ project, index = 0 }) => {
           </div>
         )}
       </div>
-
-      {/* Hover Glow Effect */}
-      <div
-        className={`absolute inset-0 pointer-events-none transition-all duration-500 ${
-          isHovered ? "shadow-2xl shadow-cyan-500/20" : ""
-        }`}
-      />
 
       <style jsx>{`
         @keyframes fadeInUp {
