@@ -29,7 +29,7 @@ const Experience = () => {
       title: 'Full Stack Summer Intern',
       company: 'NETEFIE',
       location: 'Remote',
-      duration: 'Jun 2025 - Present',
+      duration: 'Jun 2025 - Aug 2025',
       type: 'Part-time',
       description: 'Developing a Hospital Management System for big giant hospitals like apollo, apex and other clients.',
       achievements: [
